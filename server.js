@@ -1,11 +1,17 @@
 const express = require('express');
 const Gun = require('gun');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 8000;
 
 // Serve static assets from root directory
 app.use(express.static(__dirname));
+
+// SPA Fallback: Serve index.html for any unhandled GET request
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // Start the express server
 const server = app.listen(port, () => {
