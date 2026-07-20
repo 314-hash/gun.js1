@@ -1,0 +1,13 @@
+{
+  "name": "salamat-doc-chat",
+  "version": "1.0.0",
+  "description": "Salamat Doc - Peer-to-Peer Chatroom",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "gun": "^0.2020.1239"
+  }
+}

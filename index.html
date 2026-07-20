@@ -14,43 +14,45 @@
     <style>
         /* --- Global & Body Styling --- */
         :root {
-            /* New Theme Colors inspired by Design Hub image */
-            --primary-purple: #6A4DE5; /* Deeper purple for primary elements */
-            --secondary-yellow: #FFEB3B; /* Vibrant yellow for highlights */
-            --accent-pink: #E08CE5; /* Lighter purple/pink for accents */
-            --text-dark: #2C2C2C; /* Darker text for contrast */
-            --text-medium: #555; /* Medium gray for secondary text */
-            --text-light: #888; /* Lighter gray for timestamps/hints */
-            --bg-white: #FFFFFF; /* Clean white background */
-            --bg-light-gray: #F8F8F8; /* Subtle background for sections */
-            --border-light: #E0E0E0; /* Light border color */
-            --success-green: #4CAF50;
-            --success-green-dark: #45a049;
-            --error-red: #FF4444;
-            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
-            --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --rasta-red: #E53935;
+            --rasta-red-glow: rgba(229, 57, 53, 0.35);
+            --rasta-yellow: #FFEB3B;
+            --rasta-yellow-glow: rgba(255, 235, 59, 0.35);
+            --rasta-green: #4CAF50;
+            --rasta-green-glow: rgba(76, 175, 80, 0.35);
+            --bg-dark: #0A0A0C;
+            --bg-card: rgba(20, 20, 25, 0.75);
+            --text-light: #F5F5F7;
+            --text-medium: #A0A5B5;
+            --text-muted: #676A7C;
+            --border-glow: rgba(255, 255, 255, 0.05);
+            --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.7);
         }
 
         body {
-            font-family: 'Poppins', sans-serif; /* Main font */
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            background: linear-gradient(135deg, var(--secondary-yellow) 0%, var(--accent-pink) 50%, var(--primary-purple) 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite alternate; /* Slower, more massive shift */
-            color: var(--text-dark);
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(76, 175, 80, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 15%, rgba(229, 57, 53, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 50% 85%, rgba(255, 235, 59, 0.1) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.95) 100%);
+            background-attachment: fixed;
+            color: var(--text-light);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
-            overflow-x: hidden; /* Prevent horizontal scroll on animations */
+            overflow-x: hidden;
         }
 
         /* --- Keyframe Animations --- */
         @keyframes fadeInSlideUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
@@ -60,409 +62,307 @@
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+            50% { transform: scale(1.03); }
             100% { transform: scale(1); }
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes typingDots {
-            0%, 20% { content: "."; }
-            40% { content: ".."; }
-            60%, 100% { content: "..."; }
         }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            70% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes rotateStar {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         /* --- Header & Logo --- */
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+        }
+        #logo-container {
+            display: inline-block;
+            margin-bottom: 10px;
+            animation: pulse 3s infinite ease-in-out;
         }
         #logo-img {
-            max-width: 120px; /* Slightly smaller logo */
+            max-width: 120px;
             height: auto;
             display: block;
-            margin: 0 auto 10px auto;
-            animation: pulse 2s infinite ease-in-out;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 3px solid var(--rasta-yellow);
+            box-shadow: 0 0 25px var(--rasta-yellow-glow);
+            transition: transform 0.5s ease;
+        }
+        #logo-img:hover {
+            transform: rotate(5deg) scale(1.05);
         }
         h1 {
             font-family: 'Poppins', sans-serif;
-            color: var(--bg-white); /* White for main title on vibrant background */
-            margin-top: 0;
-            font-size: 3.2em; /* Larger, bolder heading */
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-            letter-spacing: -0.02em; /* Tighter letter spacing */
+            color: var(--text-light);
+            margin: 10px 0 5px 0;
+            font-size: 3em;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+            letter-spacing: -0.01em;
             line-height: 1.1;
-            font-weight: 800; /* Extra bold */
+            font-weight: 800;
             animation: fadeInSlideUp 0.8s ease-out;
         }
-        h1 span {
-            color: var(--secondary-yellow); /* Yellow highlight for "Creative brilliance" */
-            font-weight: inherit;
+        h1 span.green {
+            color: var(--rasta-green);
+        }
+        h1 span.yellow {
+            color: var(--rasta-yellow);
+        }
+        h1 span.red {
+            color: var(--rasta-red);
         }
         .subtitle-location {
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
             font-size: 1.1em;
-            color: var(--bg-white);
-            margin-top: -10px;
+            color: var(--text-medium);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
             animation: fadeInSlideUp 1s ease-out 0.2s forwards;
             opacity: 0;
         }
 
-        /* --- Abstract Elements (Decorative) --- */
-        .abstract-element {
-            position: absolute;
-            z-index: -1; /* Behind content */
-            opacity: 0.6;
-        }
-        .star-1 {
-            top: 10%;
-            left: 20%;
-            font-size: 5em;
-            color: var(--secondary-yellow);
-            animation: rotateStar 15s linear infinite;
-        }
-        .star-2 {
-            bottom: 5%;
-            right: 15%;
-            font-size: 3em;
-            color: var(--accent-pink);
-            animation: rotateStar 20s linear infinite reverse;
-        }
-        .squiggle {
-            position: absolute;
-            top: 25%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Dancing Script', cursive;
-            font-size: 8em;
-            color: var(--accent-pink);
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: -1;
-        }
-
+        /* --- App Container --- */
         #app-container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
-            background-color: var(--bg-white); /* Clean white background */
-            border-radius: 20px; /* More rounded corners */
-            box-shadow: var(--shadow-medium); /* Stronger, softer shadow */
+            background: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: var(--shadow-medium);
             display: flex;
             flex-direction: column;
             flex-grow: 1;
             overflow: hidden;
-            border: 1px solid var(--border-light);
-            animation: bounceIn 0.8s ease-out; /* App container animation */
+            border: 1px solid var(--border-glow);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            animation: bounceIn 0.6s ease-out;
         }
 
-        /* --- Buttons (General Style) --- */
+        /* --- Buttons --- */
         button {
-            padding: 12px 20px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 10px; /* More rounded */
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 0.95em;
             font-weight: 600;
             white-space: nowrap;
-            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle button shadow */
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
         button:active {
             transform: translateY(0);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         button:disabled {
-            background-color: #cccccc !important;
+            background-color: #2e3035 !important;
+            color: var(--text-muted) !important;
             cursor: not-allowed !important;
             transform: none !important;
             box-shadow: none !important;
-            opacity: 0.7;
+            opacity: 0.5;
+        }
+
+        /* Custom Button Styling */
+        .btn-yellow {
+            background: linear-gradient(135deg, var(--rasta-yellow) 0%, #F57F17 100%);
+            color: var(--bg-dark);
+        }
+        .btn-yellow:hover {
+            background: linear-gradient(135deg, #ffeb55 0%, #f79824 100%);
+            box-shadow: 0 0 15px var(--rasta-yellow-glow);
+        }
+        .btn-green {
+            background: linear-gradient(135deg, var(--rasta-green) 0%, #1B5E20 100%);
+            color: white;
+        }
+        .btn-green:hover {
+            background: linear-gradient(135deg, #5dbb61 0%, #206c25 100%);
+            box-shadow: 0 0 15px var(--rasta-green-glow);
+        }
+        .btn-red {
+            background: linear-gradient(135deg, var(--rasta-red) 0%, #B71C1C 100%);
+            color: white;
+        }
+        .btn-red:hover {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            box-shadow: 0 0 15px var(--rasta-red-glow);
         }
 
         /* --- Authentication Section --- */
         #auth-section {
-            padding: 25px;
-            border-bottom: 1px solid var(--border-light);
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-glow);
             display: flex;
             flex-wrap: wrap;
-            gap: 12px; /* Increased gap */
-            align-items: flex-end;
-            background-color: var(--bg-light-gray); /* Light gray background */
+            gap: 12px;
+            align-items: center;
+            background-color: rgba(14, 15, 18, 0.4);
         }
         #auth-section input {
-            padding: 14px; /* Larger padding */
-            border: 1px solid var(--border-light);
-            border-radius: 10px; /* More rounded */
+            padding: 12px 16px;
+            border: 1px solid var(--border-glow);
+            border-radius: 10px;
             flex-grow: 1;
-            min-width: 150px;
-            font-size: 1em;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background-color: var(--bg-white);
+            min-width: 180px;
+            font-size: 0.95em;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: var(--text-light);
+            transition: all 0.3s ease;
         }
         #auth-section input:focus {
             outline: none;
-            border-color: var(--primary-purple);
-            box-shadow: 0 0 0 4px rgba(var(--primary-purple), 0.2);
+            border-color: var(--rasta-yellow);
+            box-shadow: 0 0 10px var(--rasta-yellow-glow);
+            background-color: rgba(0, 0, 0, 0.5);
         }
         #auth-section .auth-buttons {
             display: flex;
             gap: 10px;
-            flex-grow: 1; /* Allow buttons to expand */
-            min-width: 200px; /* Ensure buttons don't collapse too much */
+            flex-grow: 1;
+            min-width: 220px;
         }
         #auth-section .auth-buttons button {
-            flex: 1; /* Distribute space evenly among buttons */
+            flex: 1;
         }
-        #signup-button, #login-button {
-            background-color: var(--primary-purple);
-            color: white;
-        }
-        #signup-button:hover, #login-button:hover { background-color: #5A3DBF; } /* Darker purple on hover */
-        #logout-button { /* New logout button style */
-            background-color: var(--error-red);
-            color: white;
-            display: none; /* Hidden by default */
-        }
-        #logout-button:hover { background-color: #da190b; }
         #auth-status {
-            margin-left: auto;
-            padding: 12px 18px;
-            background-color: #E6F7F5; /* Keep success green tint */
+            padding: 10px 18px;
+            background-color: rgba(76, 175, 80, 0.12);
+            border: 1px solid rgba(76, 175, 80, 0.25);
             border-radius: 10px;
             font-weight: 600;
-            white-space: nowrap;
-            color: var(--success-green);
-        }
-
-        /* --- Wallet Section --- */
-        #wallet-section {
-            padding: 15px 25px;
-            border-bottom: 1px solid var(--border-light);
-            background-color: var(--bg-white);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.95em;
-            color: var(--text-medium);
-        }
-        #wallet-info {
-            flex-grow: 1;
-            line-height: 1.6;
-        }
-        #wallet-address {
-            font-weight: 600;
-            color: var(--primary-purple);
-            word-break: break-all;
-        }
-        #memepi-balance {
-            font-weight: 600;
-            color: var(--secondary-yellow);
-        }
-        #connect-wallet-button, #buy-memepi-button {
-            background-color: var(--secondary-yellow);
-            color: var(--text-dark);
-        }
-        #connect-wallet-button:hover, #buy-memepi-button:hover { background-color: #FFD700; }
-
-        /* --- AI Bot Toggle --- */
-        #ai-bot-toggle-section {
-            padding: 15px 25px;
-            border-bottom: 1px solid var(--border-light);
-            background-color: var(--bg-light-gray);
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 10px;
             font-size: 0.9em;
-            color: var(--text-medium);
+            white-space: nowrap;
+            color: #81C784;
+            margin-left: auto;
         }
-        #ai-bot-toggle-section label {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-        #ai-bot-toggle {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: var(--primary-purple); /* Custom checkbox color */
-        }
-
 
         /* --- Main Chat Layout --- */
         #main-chat-layout {
             display: flex;
             flex-grow: 1;
+            height: 600px;
         }
         #sidebar {
-            width: 250px; /* Slightly wider sidebar */
-            border-right: 1px solid var(--border-light);
+            width: 260px;
+            border-right: 1px solid var(--border-glow);
             padding: 20px;
             display: flex;
             flex-direction: column;
-            background-color: var(--bg-light-gray);
-            gap: 20px; /* Space between sections */
+            background-color: rgba(14, 15, 18, 0.35);
+            gap: 24px;
+            overflow-y: auto;
         }
         #chat-area {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            background-color: rgba(10, 11, 13, 0.15);
         }
 
-        /* --- Room Selection --- */
+        /* --- Sidebar Content --- */
         #room-selection h3, #online-users h3, #moderator-controls h3 {
-            font-size: 1.2em;
-            color: var(--primary-purple);
+            font-size: 0.95em;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
             margin-top: 0;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--border-light); /* Thicker border */
+            margin-bottom: 12px;
             padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             font-weight: 700;
         }
-        #room-list {
+        #room-list, #user-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
         #room-list li {
-            padding: 12px 8px; /* More padding */
+            padding: 10px 12px;
             cursor: pointer;
             color: var(--text-medium);
             font-weight: 500;
-            transition: color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
-            border-radius: 8px; /* Rounded list items */
+            transition: all 0.2s ease;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 5px; /* Space between items */
+            margin-bottom: 6px;
         }
         #room-list li:hover {
-            color: var(--primary-purple);
-            background-color: rgba(var(--primary-purple), 0.08);
-            transform: translateX(3px); /* Subtle slide on hover */
+            color: var(--text-light);
+            background-color: rgba(255, 255, 255, 0.04);
+            transform: translateX(2px);
         }
         #room-list li.active {
-            color: var(--bg-white); /* White text for active room */
-            background-color: var(--primary-purple); /* Solid purple background */
-            box-shadow: var(--shadow-light);
-            transform: translateX(0);
+            color: var(--bg-dark);
+            background: linear-gradient(135deg, var(--rasta-yellow) 0%, #F57F17 100%);
+            box-shadow: 0 4px 12px rgba(255, 235, 59, 0.15);
+            font-weight: 600;
         }
         #room-list li.active:hover {
-            background-color: #5A3DBF; /* Darker purple on hover */
-            color: var(--bg-white);
-        }
-        .locked-room {
-            color: var(--error-red) !important;
-            cursor: not-allowed !important;
-            background-color: rgba(var(--error-red), 0.05) !important;
-            border-left: 3px solid var(--error-red);
-            padding-left: 5px;
-        }
-        .locked-room:hover {
-            color: var(--error-red) !important;
-            background-color: rgba(var(--error-red), 0.1) !important;
-        }
-        .locked-room .lock-icon {
-            margin-left: 5px;
-            font-size: 0.8em;
-            color: var(--error-red);
+            background: linear-gradient(135deg, #ffeb55 0%, #f79824 100%);
         }
         .inactive-room {
-            color: var(--text-light) !important;
+            color: var(--text-muted) !important;
             font-style: italic;
             text-decoration: line-through;
-            border-left: 3px solid var(--text-light);
-            padding-left: 5px;
+            border-left: 2px solid var(--text-muted);
+            padding-left: 8px;
         }
-        .inactive-room:hover {
-            background-color: rgba(var(--text-light), 0.1) !important;
-        }
-        .inactive-room .lock-icon {
-            color: var(--text-light) !important;
-        }
-        /* Room creation button */
         #create-room-button {
             display: block;
-            width: calc(100% - 10px);
-            padding: 12px;
-            margin-top: 15px;
-            background-color: var(--success-green);
-            color: white;
-            font-size: 1em;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
         }
-        #create-room-button:hover { background-color: var(--success-green-dark); }
-
 
         /* --- User List --- */
-        #online-users { margin-top: 20px; } /* Space from rooms */
-        #user-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
         #user-list li {
-            padding: 8px 0;
+            padding: 8px 10px;
             color: var(--text-medium);
             font-weight: 500;
             display: flex;
             align-items: center;
-            transition: color 0.2s ease, background-color 0.2s ease;
-        }
-        #user-list li:hover {
-            background-color: rgba(0,0,0,0.02);
-            color: var(--text-dark);
+            border-radius: 6px;
         }
         .online-dot, .offline-dot {
-            width: 10px; /* Slightly larger dot */
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            margin-right: 10px; /* More space */
+            margin-right: 10px;
             display: inline-block;
-            transition: background-color 0.3s ease;
         }
-        .online-dot { background-color: var(--success-green); }
-        .offline-dot { background-color: var(--text-light); }
+        .online-dot { 
+            background-color: var(--rasta-green); 
+            box-shadow: 0 0 8px var(--rasta-green-glow);
+        }
+        .offline-dot { 
+            background-color: var(--text-muted); 
+        }
 
         /* --- Typing Indicators --- */
         #typing-indicator {
-            min-height: 25px; /* Taller */
+            min-height: 20px;
             font-style: italic;
-            color: var(--text-medium);
-            padding: 8px 20px; /* More padding */
+            color: var(--rasta-yellow);
+            padding: 6px 20px;
             opacity: 0;
             transition: opacity 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 4px; /* More gap */
-            border-top: 1px solid var(--border-light);
-            background-color: var(--bg-light-gray);
-            font-size: 0.9em;
+            font-size: 0.85em;
+            background-color: rgba(14, 15, 18, 0.4);
+            border-top: 1px solid var(--border-glow);
         }
         #typing-indicator.active { opacity: 1; }
 
@@ -470,117 +370,89 @@
         #messages {
             flex-grow: 1;
             overflow-y: auto;
-            padding: 20px; /* More padding */
-            border-bottom: 1px solid var(--border-light);
-            background-color: var(--bg-white);
+            padding: 25px;
+            border-bottom: 1px solid var(--border-glow);
+            background-color: rgba(10, 11, 13, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
         .message {
-            margin-bottom: 12px; /* More space between messages */
-            padding: 12px 18px; /* More padding */
-            border-radius: 22px; /* Even more rounded */
-            background-color: var(--bg-light-gray); /* Lighter background for others */
+            padding: 12px 18px;
+            border-radius: 18px;
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.02);
             word-wrap: break-word;
             position: relative;
             line-height: 1.5;
-            max-width: 85%; /* Slightly wider messages */
-            box-shadow: var(--shadow-light); /* Softer shadow */
-            animation: fadeInSlideUp 0.4s ease-out; /* Slightly slower animation */
+            max-width: 75%;
+            align-self: flex-start;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            animation: fadeInSlideUp 0.35s ease-out;
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
         }
         .message strong { 
-            color: var(--primary-purple); /* Consistent purple for sender name */
+            color: var(--rasta-yellow);
             font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 4px;
         }
         .message .timestamp {
-            font-size: 0.75em; /* Slightly larger timestamp */
-            color: var(--text-light);
-            margin-left: 12px;
+            font-size: 0.7em;
+            color: var(--text-muted);
+            align-self: flex-end;
+            margin-top: 5px;
         }
         .message-content {
-            flex-grow: 1;
-            text-align: left;
-            color: var(--text-dark); /* Darker text for readability */
-        }
-        .message.my-message .message-content {
-            text-align: right;
+            color: var(--text-light);
+            font-size: 0.95em;
         }
         .message.my-message {
-            background-color: var(--secondary-yellow); /* Yellow for self messages */
-            text-align: right;
-            margin-left: auto;
-            margin-right: 0;
-            flex-direction: row-reverse;
+            align-self: flex-end;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(27, 94, 32, 0.2) 100%);
+            border: 1px solid rgba(76, 175, 80, 0.25);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.08);
         }
-        .message.my-message strong { color: var(--text-dark); } /* Dark text on yellow */
-        .message.my-message .timestamp { left: auto; right: 12px; }
-
-        /* AI Bot Message Styling */
-        .message.ai-bot-message {
-            background-color: #D6EFFF; /* Lighter blue */
-            color: #004D7A; /* Darker blue text */
-            text-align: left;
-            margin-right: auto;
-            margin-left: 0;
-            flex-direction: row;
+        .message.my-message strong { 
+            color: #81C784; 
         }
-        .message.ai-bot-message strong {
-            color: #004D7A;
-        }
-
-        /* Tip button inside message */
-        .tip-button {
-            background-color: var(--accent-pink); /* Pink for tip button */
-            color: white;
-            border-radius: 8px; /* More rounded */
-            padding: 6px 10px; /* More padding */
-            font-size: 0.75em;
-            font-weight: 600;
-            margin-left: 12px;
-            box-shadow: none; /* No extra shadow on small button */
-        }
-        .tip-button:hover { background-color: #C17BE0; transform: translateY(-1px); }
-        .message.my-message .tip-button { margin-left: 0; margin-right: 12px; }
 
         /* --- Input Area --- */
         #input-area {
-            padding: 20px; /* More padding */
+            padding: 20px;
             display: flex;
-            border-top: 1px solid var(--border-light);
-            background-color: var(--bg-white);
+            border-top: 1px solid var(--border-glow);
+            background-color: rgba(14, 15, 18, 0.4);
         }
         #message-input {
             flex-grow: 1;
-            padding: 14px; /* Larger padding */
-            border: 1px solid var(--border-light);
-            border-radius: 10px; /* More rounded */
-            margin-right: 12px; /* More margin */
-            font-size: 1em;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background-color: var(--bg-light-gray); /* Light gray input field */
+            padding: 14px 18px;
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            margin-right: 12px;
+            font-size: 0.95em;
+            background-color: rgba(0, 0, 0, 0.25);
+            color: var(--text-light);
+            transition: all 0.3s ease;
         }
         #message-input:focus {
             outline: none;
-            border-color: var(--primary-purple);
-            box-shadow: 0 0 0 4px rgba(var(--primary-purple), 0.2);
+            border-color: var(--rasta-yellow);
+            box-shadow: 0 0 10px rgba(255, 235, 59, 0.15);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        #message-input:disabled {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            border-color: transparent;
         }
         #message-input::placeholder {
-            color: var(--text-light);
-            opacity: 1;
-            transition: color 0.3s ease;
+            color: var(--text-muted);
         }
-        #message-input:focus::placeholder {
-            color: transparent;
-        }
-        #send-button {
-            background-color: var(--primary-purple);
-            color: white;
-        }
-        #send-button:hover { background-color: #5A3DBF; }
 
-        /* --- Modals (for Tipping & Create Room & Moderator Management) --- */
+        /* --- Modals --- */
         .modal {
             display: none;
             position: fixed;
@@ -590,213 +462,222 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.7); /* Darker overlay */
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s ease-out;
         }
         .modal-content {
-            background-color: var(--bg-white);
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-glow);
             margin: auto;
-            padding: 30px; /* More padding */
-            border-radius: 15px; /* More rounded */
-            box-shadow: var(--shadow-medium);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.9), 0 0 25px rgba(255, 235, 59, 0.05);
             width: 90%;
-            max-width: 450px; /* Slightly wider */
+            max-width: 420px;
             text-align: center;
-            animation: bounceIn 0.4s ease-out;
+            animation: fadeInSlideUp 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
         }
         .modal-content h3 {
-            color: var(--primary-purple);
+            color: var(--rasta-yellow);
             margin-top: 0;
-            margin-bottom: 25px; /* More margin */
-            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-size: 1.4em;
             font-weight: 700;
+            letter-spacing: 0.02em;
         }
-        .modal-content input {
-            width: calc(100% - 28px); /* Adjust for padding */
-            padding: 12px; /* More padding */
-            margin-bottom: 18px; /* More margin */
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            font-size: 1em;
-        }
-        .modal-content button {
-            padding: 12px 25px; /* More padding */
-            margin: 8px; /* More margin */
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
-        }
-        .modal-content button.confirm-button {
-            background-color: var(--primary-purple); /* Use primary purple for confirm */
-            color: white;
-        }
-        .modal-content button.confirm-button:hover { background-color: #5A3DBF; }
-        .modal-content button.cancel-button {
-            background-color: var(--text-light); /* Use light gray for cancel */
-            color: white;
-        }
-        .modal-content button.cancel-button:hover { background-color: #777; }
-        .modal-message {
-            margin-top: 20px; /* More margin */
-            margin-bottom: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
+        .modal-content h4 {
+            color: var(--text-medium);
+            margin-bottom: 12px;
+            text-align: left;
             font-size: 0.95em;
         }
-        #currentModsList li {
-            padding: 5px 0;
+        .modal-content input {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-glow);
+            border-radius: 10px;
+            font-size: 0.95em;
+            background-color: rgba(0,0,0,0.3);
+            color: var(--text-light);
+            transition: border-color 0.3s ease;
+        }
+        .modal-content input:focus {
+            outline: none;
+            border-color: var(--rasta-yellow);
+        }
+        .modal-content button {
+            padding: 10px 20px;
+            margin: 6px;
+            border-radius: 10px;
+            font-size: 0.95em;
+        }
+        .modal-message {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-weight: 600;
             font-size: 0.9em;
+        }
+        #currentModsList {
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 10px !important;
+            background-color: rgba(0,0,0,0.2);
+        }
+        #currentModsList li {
+            padding: 6px 0;
+            font-size: 0.85em;
             color: var(--text-medium);
             word-break: break-all;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            text-align: left;
         }
-        #currentModsList li:first-child {
-            margin-bottom: 10px;
+        #currentModsList li:last-child {
+            border-bottom: none;
         }
-        /* CAPTCHA specific styles */
-        #captcha-modal .modal-content {
-            max-width: 350px;
-            padding: 25px;
-        }
+        
         #captcha-challenge {
-            font-size: 1.5em;
+            font-size: 2em;
             font-weight: bold;
             margin-bottom: 15px;
-            color: var(--primary-purple);
+            color: var(--rasta-yellow);
+            letter-spacing: 0.05em;
         }
         #captcha-input {
             text-align: center;
         }
-        #captcha-message {
-            margin-top: 10px;
-            font-size: 0.9em;
+
+        /* --- Scrollbar Styling --- */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--rasta-yellow);
         }
 
+        /* --- Decorative abstract leaves --- */
+        .decor-leaf {
+            position: absolute;
+            font-size: 6em;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: -1;
+            user-select: none;
+        }
+        .leaf-left {
+            bottom: 10%;
+            left: 2%;
+            transform: rotate(25deg);
+            color: var(--rasta-green);
+        }
+        .leaf-right {
+            top: 15%;
+            right: 2%;
+            transform: rotate(-15deg);
+            color: var(--rasta-green);
+        }
 
         /* --- Responsive Adjustments --- */
         @media (max-width: 768px) {
             body {
-                padding: 15px;
+                padding: 10px;
             }
             h1 {
-                font-size: 2.5em;
+                font-size: 2.2em;
             }
             .subtitle-location {
-                font-size: 1em;
+                font-size: 1.0em;
             }
             #app-container {
-                border-radius: 10px;
+                border-radius: 12px;
                 box-shadow: none;
             }
-            #auth-section, #wallet-section, #ai-bot-toggle-section {
+            #auth-section {
                 padding: 15px;
                 gap: 8px;
             }
-            #auth-section input, #auth-section button,
-            #connect-wallet-button, #buy-memepi-button {
+            #auth-section input, #auth-section button {
                 width: 100%;
                 min-width: unset;
                 flex-grow: 0;
             }
             #auth-section .auth-buttons {
-                flex-direction: column; /* Stack auth buttons vertically */
+                flex-direction: column;
             }
             #main-chat-layout {
                 flex-direction: column;
+                height: auto;
             }
             #sidebar {
-                width: 100%;
+                width: auto;
                 border-right: none;
-                border-bottom: 1px solid var(--border-light);
-                flex-direction: column; /* Keep vertical for easier scrolling on mobile */
+                border-bottom: 1px solid var(--border-glow);
                 padding: 15px;
                 gap: 15px;
+                max-height: 200px;
             }
-            #room-selection, #online-users, #moderator-controls {
-                flex: none; /* No flex grow */
+            #room-selection, #online-users {
                 width: 100%;
-                margin-bottom: 0;
             }
             #room-list, #user-list {
-                display: block; /* Stack list items vertically */
-                margin-top: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                margin-top: 5px;
             }
             #room-list li {
-                padding: 10px;
-                border-radius: 8px;
-                margin-bottom: 5px;
-                transform: translateX(0) !important; /* Disable hover slide on mobile */
+                padding: 6px 12px;
+                margin-bottom: 0;
             }
             #room-list li.active {
-                border-left: none;
-                border-bottom: 3px solid var(--primary-purple);
-                padding-bottom: 7px;
-                border-radius: 0;
+                transform: none;
             }
             #create-room-button {
-                width: 100%;
-                margin-top: 10px;
-            }
-            #moderator-controls hr { margin: 10px 0; }
-            #moderator-controls h3 { margin-bottom: 10px; }
-            #manage-moderators-button { width: 100%; }
-
-            #chat-area {
-                padding: 0; /* Remove padding from chat-area itself */
+                width: auto;
+                display: inline-block;
+                margin-top: 5px;
+                padding: 6px 12px;
             }
             #messages {
-                padding: 15px; /* Padding for messages div */
+                padding: 15px;
+                height: 350px;
             }
             .message {
-                max-width: 98%; /* Allow messages to take more width */
-                padding: 10px 15px;
-                margin-bottom: 8px;
+                max-width: 90%;
             }
             #input-area {
                 padding: 15px;
             }
-            #message-input {
-                padding: 12px;
-                margin-right: 8px;
+            .decor-leaf {
+                display: none;
             }
-            #send-button {
-                padding: 12px 18px;
-            }
-            .modal-content {
-                padding: 20px;
-                max-width: 320px;
-            }
-            .modal-content h3 {
-                font-size: 1.3em;
-                margin-bottom: 20px;
-            }
-            .modal-content input {
-                width: calc(100% - 20px);
-                padding: 10px;
-            }
-            .modal-content button {
-                padding: 10px 15px;
-                margin: 5px;
-            }
-
-            /* Hide decorative elements on small screens */
-            .abstract-element { display: none; }
         }
     </style>
 </head>
 <body>
     <header>
-        <!-- Your Logo Image -->
-        <img id="logo-img" src="images/memepi-logo.png" alt="MemePi Token Logo">
-        <h1>Unleashing <span class="highlight">Creative</span> brilliance</h1>
-        <p class="subtitle-location">MemePi P2P Chat</p>
+        <div id="logo-container">
+            <img id="logo-img" src="images/salamat_doc_logo.png" alt="Salamat Doc Logo">
+        </div>
+        <h1><span class="green">Salamat</span> <span class="yellow">Doc</span> <span class="red">Chat</span></h1>
+        <p class="subtitle-location">P2P Decentralized Chatroom</p>
     </header>
 
-    <!-- Abstract Decorative Elements -->
-    <div class="abstract-element star-1">✨</div>
-    <div class="abstract-element star-2">🌟</div>
-    <div class="abstract-element squiggle">𝓒𝓱𝓪𝓽</div>
+    <!-- Decorative Elements -->
+    <div class="decor-leaf leaf-left">🌿</div>
+    <div class="decor-leaf leaf-right">🌿</div>
 
     <div id="app-container">
         <!-- Authentication Section -->
@@ -804,29 +685,11 @@
             <input type="text" id="auth-username" placeholder="Username">
             <input type="password" id="auth-password" placeholder="Password">
             <div class="auth-buttons">
-                <button id="signup-button">Sign Up</button>
-                <button id="login-button">Log In</button>
-                <button id="logout-button">Log Out</button> <!-- NEW: Dedicated Logout Button -->
+                <button id="signup-button" class="btn-yellow">Sign Up</button>
+                <button id="login-button" class="btn-green">Log In</button>
+                <button id="logout-button" class="btn-red">Log Out</button>
             </div>
             <span id="auth-status">Not Logged In</span>
-        </div>
-
-        <!-- Wallet Connection Section -->
-        <div id="wallet-section">
-            <div id="wallet-info">
-                Wallet: <span id="wallet-address">Not Connected</span><br>
-                MEMEPI Balance: <span id="memepi-balance">0.00</span>
-            </div>
-            <button id="connect-wallet-button">Connect Wallet</button>
-            <button id="buy-memepi-button">Buy MEMEPI</button>
-        </div>
-
-        <!-- AI Bot Toggle Section -->
-        <div id="ai-bot-toggle-section">
-            <label for="ai-bot-toggle">
-                <input type="checkbox" id="ai-bot-toggle">
-                Activate MemePi Oracle Bot
-            </label>
         </div>
 
         <div id="main-chat-layout">
@@ -837,7 +700,7 @@
                     <ul id="room-list">
                         <!-- Rooms will be dynamically loaded here -->
                     </ul>
-                    <button id="create-room-button">Create New Room</button>
+                    <button id="create-room-button" class="btn-yellow">Create New Room</button>
                 </div>
                 <div id="online-users">
                     <h3>Online Users</h3>
@@ -845,7 +708,6 @@
                         <!-- Online users will appear here -->
                     </ul>
                 </div>
-                <!-- Moderator controls will be appended here by JS -->
             </div>
 
             <!-- Main Chat Area -->
@@ -856,95 +718,70 @@
                 <div id="typing-indicator"></div>
                 <div id="input-area">
                     <input type="text" id="message-input" placeholder="Type your message..." autofocus disabled>
-                    <button id="send-button" disabled>Send</button>
+                    <button id="send-button" class="btn-yellow" disabled>Send</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modals -->
-    <!-- Tip Modal -->
-    <div id="tipModal" class="modal">
-        <div class="modal-content">
-            <h3>Send MEMEPI Tip</h3>
-            <p>Tipping <span id="tipRecipientAlias"></span></p>
-            <input type="number" id="tipAmountInput" placeholder="Amount (MEMEPI)" step="0.01" min="0.01">
-            <div class="modal-message" id="tipMessage"></div>
-            <button class="confirm-button" id="confirmTipButton">Confirm Tip</button>
-            <button class="cancel-button" id="cancelTipButton">Cancel</button>
-        </div>
-    </div>
-
     <!-- Create Room Modal -->
     <div id="createRoomModal" class="modal">
         <div class="modal-content">
             <h3>Create New Chat Room</h3>
-            <input type="text" id="newRoomNameInput" placeholder="Enter room name (e.g., my-new-room)">
+            <input type="text" id="newRoomNameInput" placeholder="Enter room name (e.g., general-chat)">
             <div class="modal-message" id="createRoomMessage"></div>
-            <button class="confirm-button" id="confirmCreateRoomButton">Create Room</button>
-            <button class="cancel-button" id="cancelCreateRoomButton">Cancel</button>
+            <button class="confirm-button btn-yellow" id="confirmCreateRoomButton">Create Room</button>
+            <button class="cancel-button btn-red" id="cancelCreateRoomButton">Cancel</button>
         </div>
     </div>
 
-    <!-- CAPTCHA Modal (NEW) -->
-    <div id="captcha-modal" class="modal">
-        <div class="modal-content">
-            <h3>Security Check</h3>
-            <p>Please solve the CAPTCHA to proceed:</p>
-            <div id="captcha-challenge" style="font-family: 'Dancing Script', cursive; font-size: 2em; margin-bottom: 15px;"></div>
-            <input type="text" id="captcha-input" placeholder="Your answer">
-            <div class="modal-message" id="captcha-message"></div>
-            <button class="confirm-button" id="captcha-confirm-button">Verify</button>
-            <button class="cancel-button" id="captcha-cancel-button">Cancel</button>
+    <!-- Keys Modal (for displaying public/private keypair after signup) -->
+    <div id="keysModal" class="modal">
+        <div class="modal-content" style="max-width: 600px; text-align: left;">
+            <h3 style="color: var(--accent-gold); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 15px;">🔒 Your Cryptographic Keys</h3>
+            <p style="font-size: 0.9em; line-height: 1.4; color: var(--text-color); margin-bottom: 15px;">
+                Your account is secured peer-to-peer using end-to-end cryptography. Below are your unique keys.
+                <strong style="color: var(--accent-red); display: block; margin-top: 5px;">⚠️ WARNING: Store your Private Key securely. It cannot be recovered!</strong>
+            </p>
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 0.85em; color: var(--accent-gold); display: block; margin-bottom: 4px;">Public Key (Your Address)</label>
+                <textarea id="keyModalPubKey" readonly style="width: 100%; height: 60px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px; color: var(--text-color); font-family: monospace; font-size: 0.8em; resize: none;"></textarea>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="font-size: 0.85em; color: var(--accent-gold); display: block; margin-bottom: 4px;">Private Key (Keep Secret)</label>
+                <textarea id="keyModalPrivKey" readonly style="width: 100%; height: 80px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px; color: var(--text-color); font-family: monospace; font-size: 0.8em; resize: none;"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="confirm-button btn-yellow" id="copyKeysButton" style="width: auto; padding: 8px 16px;">Copy Private Key</button>
+                <button class="cancel-button btn-red" id="closeKeysModalButton" style="width: auto; padding: 8px 16px; margin: 0;">Close & Proceed</button>
+            </div>
         </div>
     </div>
 
 
-    <!-- Include Ethers.js (before your main script) -->
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js" type="application/javascript"></script>
+
 
     <!-- Include Gun.js and SEA library -->
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gun/lib/not.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gun-indexeddb/gun-indexeddb.js"></script>
-
-    <!-- NEW: Include Million.js -->
-    <!-- Note: For full benefits, you'll need to refactor your DOM manipulation to use Million.js's virtual DOM. -->
-    <script src="https://unpkg.com/million@2.6.4/dist/million.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/gun-indexeddb/gun-indexeddb.js"></script> 
 
     <script>
         // --- Global Constants & Configurations ---
-        // IMPORTANT: Replace with your actual deployed MemePi token address on Optimism Mainnet or Sepolia
-        const MEMEPI_TOKEN_ADDRESS = '0x746F0F67a6FB3c7362De547ce3249F37a138A128';
-        const GATED_ROOMS = { // Define rooms that require a minimum balance
-            'memepi_dev': { requiredBalance: 10 } // Example: 10 MEMEPI needed for #memepi-dev
-        };
-        const MEMEPI_TOKEN_ABI = [ // Minimal ABI for ERC-20 functions we need
-            "function balanceOf(address owner) view returns (uint256)",
-            "function decimals() view returns (uint8)",
-            "function symbol() view returns (string)",
-            "function transfer(address to, uint256 amount) returns (bool)" // Added for tipping
-        ];
-
-        // Uniswap Link Configuration
-        const UNISWAP_BASE_URL = 'https://app.uniswap.org/swap';
-        const OPTIMISM_CHAIN_ID_UNISWAP = 'optimism'; // Uniswap app uses 'optimism' string for chain ID
-        const NATIVE_ETH_UNISWAP_KEYWORD = 'ETH'; // Uniswap app uses 'ETH' for native Ether
-
-        // Room Inactivity Timeout (24 hours in milliseconds) - For flagging, not automatic deletion
-        const ROOM_INACTIVITY_TIMEOUT_MS = 24 * 60 * 60 * 1000;
-        const DEFAULT_ROOMS = ['general', 'memepi_dev', 'random']; // Rooms that are always present
+        const ROOM_INACTIVITY_TIMEOUT_MS = 24 * 60 * 60 * 1000; // 24 hours
+        const DEFAULT_ROOMS = ['general', 'random', 'lounge']; // Rooms that are always present
 
         // --- SUPER ADMIN CONFIGURATION ---
-        // IMPORTANT: REPLACE THIS WITH YOUR OWN GUN.JS PUBLIC KEY
-        // To get your public key: Log in to your Gun.js account in the app, open console (F12), type `gun.user().is.pub` and copy the output.
         const SUPER_ADMIN_PUB_KEY = 'YOUR_ACTUAL_GUN_JS_PUBLIC_KEY_HERE'; 
 
         // --- Gun.js Initialization ---
+        const localPeer = window.location.origin + '/gun';
         const gun = Gun({
             peers: [
+                localPeer,
                 'https://gun-manhattan.herokuapp.com/gun',
                 'https://gun-us.herokuapp.com/gun',
                 'https://gun-eu.herokuapp.com/gun'
@@ -960,13 +797,6 @@
         const logoutButton = document.getElementById('logout-button');
         const authStatusSpan = document.getElementById('auth-status');
 
-        const walletAddressSpan = document.getElementById('wallet-address');
-        const memepiBalanceSpan = document.getElementById('memepi-balance');
-        const connectWalletButton = document.getElementById('connect-wallet-button');
-        const buyMemepiButton = document.getElementById('buy-memepi-button');
-
-        const aiBotToggle = document.getElementById('ai-bot-toggle');
-
         const roomList = document.getElementById('room-list');
         const createRoomButton = document.getElementById('create-room-button');
         const userList = document.getElementById('user-list');
@@ -979,20 +809,13 @@
         const moderatorControlsDiv = document.createElement('div');
         moderatorControlsDiv.id = 'moderator-controls';
         moderatorControlsDiv.innerHTML = `
-            <hr style="border-color: var(--border-light); margin: 15px 0;">
+            <hr style="border-color: rgba(255, 255, 255, 0.05); margin: 15px 0;">
             <h3>Moderator Tools</h3>
-            <button id="manage-moderators-button" style="display: none; width: calc(100% - 10px); padding: 10px; background-color: var(--primary-purple); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.95em; transition: background-color 0.2s ease, transform 0.1s ease;">Manage Moderators</button>
+            <button id="manage-moderators-button" class="btn-yellow" style="display: none; width: 100%; padding: 10px; margin-top: 5px;">Manage Moderators</button>
         `;
         document.getElementById('sidebar').appendChild(moderatorControlsDiv);
 
         // Modals
-        const tipModal = document.getElementById('tipModal');
-        const tipRecipientAliasSpan = document.getElementById('tipRecipientAlias');
-        const tipAmountInput = document.getElementById('tipAmountInput');
-        const tipMessageDiv = document.getElementById('tipMessage');
-        const confirmTipButton = document.getElementById('confirmTipButton');
-        const cancelTipButton = document.getElementById('cancelTipButton');
-
         const createRoomModal = document.getElementById('createRoomModal');
         const newRoomNameInput = document.getElementById('newRoomNameInput');
         const createRoomMessageDiv = document.getElementById('createRoomMessage');
@@ -1008,10 +831,10 @@
                 <h3>Manage Chat Moderators</h3>
                 <input type="text" id="modAliasInput" placeholder="Enter user's alias">
                 <div class="modal-message" id="modMessage"></div>
-                <button class="confirm-button" id="addModButton">Add Moderator</button>
-                <button class="cancel-button" id="removeModButton">Remove Moderator</button>
-                <button class="cancel-button" id="closeModModalButton">Close</button>
-                <hr>
+                <button class="confirm-button btn-yellow" id="addModButton">Add Moderator</button>
+                <button class="cancel-button btn-red" id="removeModButton">Remove Moderator</button>
+                <button class="cancel-button btn-red" id="closeModModalButton">Close</button>
+                <hr style="border-color: rgba(255,255,255,0.05); margin: 15px 0;">
                 <h4>Current Moderators:</h4>
                 <ul id="currentModsList" style="list-style: none; padding: 0; text-align: left;"></ul>
             </div>
@@ -1027,13 +850,12 @@
         const closeModModalButton = document.getElementById('closeModModalButton');
         const currentModsList = document.getElementById('currentModsList');
 
-        // CAPTCHA Modal references
-        const captchaModal = document.getElementById('captcha-modal');
-        const captchaChallengeDiv = document.getElementById('captcha-challenge');
-        const captchaInput = document.getElementById('captcha-input');
-        const captchaMessageDiv = document.getElementById('captcha-message');
-        const captchaConfirmButton = document.getElementById('captcha-confirm-button');
-        const captchaCancelButton = document.getElementById('captcha-cancel-button');
+        // References for Keys modal
+        const keysModal = document.getElementById('keysModal');
+        const keyModalPubKey = document.getElementById('keyModalPubKey');
+        const keyModalPrivKey = document.getElementById('keyModalPrivKey');
+        const copyKeysButton = document.getElementById('copyKeysButton');
+        const closeKeysModalButton = document.getElementById('closeKeysModalButton');
 
         // --- Global State Variables ---
         let currentUserAlias = null;
@@ -1042,17 +864,6 @@
         let chatRoomRef = null;
         let messageListener = null;
         let typingTimeout = null;
-        let aiBotIsActive = false;
-        let aiBotLastResponseTime = 0;
-        const AI_BOT_RESPONSE_DELAY = 3000;
-
-        let walletProvider = null;
-        let walletSigner = null;
-        let connectedWalletAddress = null;
-        let memepiContract = null;
-        let memepiDecimals = 18;
-
-        let tippingTargetAlias = null;
 
         // --- Data Maps for UI Rendering ---
         const messagesMap = new Map();
@@ -1062,17 +873,8 @@
         const allRoomsMap = new Map();
         const moderatorsMap = new Map();
 
-        // --- CAPTCHA State ---
-        let correctCaptchaAnswer = 0;
-        let captchaCallback = null;
-
         // --- Gun.js User Object ---
         const user = gun.user();
-
-        // --- AI Bot User Object ---
-        const aiBotAlias = 'MemePiOracle';
-        const aiBotPassword = 'memepi-secret-bot-password-123';
-        const aiBotUser = gun.user();
 
         // --- Helper Functions ---
         function isSuperAdmin() {
@@ -1185,8 +987,6 @@
             messageElement.classList.add('message');
             if (msg.sender === currentUserAlias) {
                 messageElement.classList.add('my-message');
-            } else if (msg.sender === aiBotAlias) {
-                messageElement.classList.add('ai-bot-message');
             }
 
             const timestamp = new Date(msg.timestamp).toLocaleString();
@@ -1196,19 +996,10 @@
 
             messageElement.appendChild(messageContentDiv);
 
-            if (msg.sender !== currentUserAlias && msg.sender !== aiBotAlias && currentUserAlias && connectedWalletAddress) {
-                const tipButton = document.createElement('button');
-                tipButton.classList.add('tip-button');
-                tipButton.textContent = 'Tip MEMEPI';
-                tipButton.onclick = () => openTipModal(msg.sender);
-                messageElement.appendChild(tipButton);
-            }
-
             const timestampSpan = document.createElement('span');
             timestampSpan.classList.add('timestamp');
             timestampSpan.textContent = timestamp;
             messageElement.appendChild(timestampSpan);
-
 
             messagesDiv.appendChild(messageElement);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -1227,8 +1018,6 @@
                 messageElement.classList.add('message');
                 if (msg.sender === currentUserAlias) {
                     messageElement.classList.add('my-message');
-                } else if (msg.sender === aiBotAlias) {
-                    messageElement.classList.add('ai-bot-message');
                 }
                 messageElement.style.animation = 'none';
 
@@ -1237,14 +1026,6 @@
                 messageContentDiv.classList.add('message-content');
                 messageContentDiv.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}`;
                 messageElement.appendChild(messageContentDiv);
-
-                if (msg.sender !== currentUserAlias && msg.sender !== aiBotAlias && currentUserAlias && connectedWalletAddress) {
-                    const tipButton = document.createElement('button');
-                    tipButton.classList.add('tip-button');
-                    tipButton.textContent = 'Tip MEMEPI';
-                    tipButton.onclick = () => openTipModal(msg.sender);
-                    messageElement.appendChild(tipButton);
-                }
 
                 const timestampSpan = document.createElement('span');
                 timestampSpan.classList.add('timestamp');
@@ -1275,7 +1056,7 @@
             });
 
             if (typingAliases.length > 0) {
-                typingIndicator.textContent = `${typingAliases.join(', ')}`;
+                typingIndicator.textContent = `${typingAliases.join(', ')} is typing...`;
                 typingIndicator.classList.add('active');
             } else {
                 typingIndicator.textContent = '';
@@ -1283,152 +1064,13 @@
             }
         }
 
-        // --- Wallet & Token Gating Logic ---
-
-        async function connectWallet() {
-            console.log("connectWallet called.");
-            if (typeof window.ethereum !== 'undefined') {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    connectedWalletAddress = accounts[0];
-                    walletAddressSpan.textContent = connectedWalletAddress.substring(0, 6) + '...' + connectedWalletAddress.substring(38);
-                    connectWalletButton.textContent = 'Wallet Connected';
-                    connectWalletButton.disabled = true;
-
-                    walletProvider = new ethers.providers.Web3Provider(window.ethereum);
-                    walletSigner = walletProvider.getSigner();
-
-                    memepiContract = new ethers.Contract(MEMEPI_TOKEN_ADDRESS, MEMEPI_TOKEN_ABI, walletProvider);
-
-                    memepiDecimals = await memepiContract.decimals();
-                    console.log('MemePi Token Decimals:', memepiDecimals);
-
-                    await updateMemePiBalance();
-
-                    window.ethereum.on('accountsChanged', handleAccountsChanged);
-                    window.ethereum.on('chainChanged', handleChainChanged);
-
-                    await evaluateRoomAccess();
-                    console.log("Wallet connected successfully:", connectedWalletAddress);
-
-                } catch (error) {
-                    console.error("User denied account access or other wallet connection error:", error);
-                    alert("Failed to connect wallet: " + (error.message || "Unknown error. Check console."));
-                    resetWalletUI();
-                }
-            } else {
-                alert("MetaMask or compatible wallet is not detected. Please install it.");
-                console.warn("MetaMask not detected.");
-                resetWalletUI();
-            }
-        }
-
-        async function updateMemePiBalance() {
-            if (connectedWalletAddress && memepiContract) {
-                try {
-                    const balance = await memepiContract.balanceOf(connectedWalletAddress);
-                    const formattedBalance = ethers.utils.formatUnits(balance, memepiDecimals);
-                    memepiBalanceSpan.textContent = parseFloat(formattedBalance).toFixed(2);
-                    console.log("MemePi balance updated:", formattedBalance);
-                } catch (error) {
-                    console.error("Error fetching MemePi balance:", error);
-                    memepiBalanceSpan.textContent = "Error";
-                }
-            } else {
-                memepiBalanceSpan.textContent = "0.00";
-            }
-        }
-
-        function resetWalletUI() {
-            console.log("resetWalletUI called.");
-            connectedWalletAddress = null;
-            walletProvider = null;
-            walletSigner = null;
-            memepiContract = null;
-            walletAddressSpan.textContent = "Not Connected";
-            memepiBalanceSpan.textContent = "0.00";
-            connectWalletButton.textContent = "Connect Wallet";
-            connectWalletButton.disabled = false;
-            evaluateRoomAccess();
-        }
-
-        async function handleAccountsChanged(accounts) {
-            console.log('MetaMask: accountsChanged event detected. Accounts:', accounts);
-            if (accounts.length === 0) {
-                console.log('MetaMask: No accounts connected. Resetting wallet UI.');
-                resetWalletUI();
-            } else if (accounts[0] !== connectedWalletAddress) {
-                connectedWalletAddress = accounts[0];
-                console.log('MetaMask: Account changed to:', connectedWalletAddress);
-                walletAddressSpan.textContent = connectedWalletAddress.substring(0, 6) + '...' + connectedWalletAddress.substring(38);
-                await updateMemePiBalance();
-                await evaluateRoomAccess();
-            }
-        }
-
-        async function handleChainChanged(chainId) {
-            console.log('MetaMask: Chain changed to:', chainId);
-            if (chainId !== '0xA' && chainId !== '0xAA36A7') {
-                alert("Please switch to Optimism Mainnet or Sepolia Testnet in your wallet.");
-                console.warn(`MetaMask: Incorrect chain detected. Expected 0xA or 0xAA36A7, got ${chainId}.`);
-            }
-            if (window.ethereum && connectedWalletAddress) {
-                walletProvider = new ethers.providers.Web3Provider(window.ethereum);
-                walletSigner = walletProvider.getSigner();
-                memepiContract = new ethers.Contract(MEMEPI_TOKEN_ADDRESS, MEMEPI_TOKEN_ABI, walletProvider);
-                memepiDecimals = await memepiContract.decimals();
-                await updateMemePiBalance();
-                await evaluateRoomAccess();
-            }
-        }
-
-        async function evaluateRoomAccess() {
-            const currentBalance = parseFloat(memepiBalanceSpan.textContent);
-            Array.from(roomList.children).forEach(li => {
-                const roomName = li.dataset.room;
-                if (GATED_ROOMS[roomName]) {
-                    const required = GATED_ROOMS[roomName].requiredBalance;
-                    if (currentBalance < required) {
-                        li.classList.add('locked-room');
-                        li.title = `Requires ${required} MEMEPI`;
-                    } else {
-                        li.classList.remove('locked-room');
-                        li.title = '';
-                    }
-                }
-            });
-            console.log("Room access evaluated.");
-        }
-
-        function buyMemepi() {
-            const uniswapUrl = `${UNISWAP_BASE_URL}?chain=${OPTIMISM_CHAIN_ID_UNISWAP}&inputCurrency=${NATIVE_ETH_UNISWAP_KEYWORD}&outputCurrency=${MEMEPI_TOKEN_ADDRESS}`;
-            window.open(uniswapUrl, '_blank');
-            console.log("Opening Uniswap link:", uniswapUrl);
-        }
-
         // --- Core Chat Logic ---
 
         async function switchRoom(newRoom) {
             console.log(`Attempting to switch to room: #${newRoom}`);
-            if (newRoom === currentRoomName) {
+            if (newRoom === currentRoomName && chatRoomRef) {
                 console.log(`Already in room: #${newRoom}. Aborting switch.`);
                 return;
-            }
-
-            if (GATED_ROOMS[newRoom]) {
-                if (!connectedWalletAddress || !memepiContract) {
-                    alert("Please connect your wallet to access this gated room.");
-                    console.warn(`Access denied to #${newRoom}: Wallet not connected.`);
-                    return;
-                }
-                const currentBalance = parseFloat(memepiBalanceSpan.textContent);
-                const required = GATED_ROOMS[newRoom].requiredBalance;
-
-                if (currentBalance < required) {
-                    alert(`Access Denied: You need at least ${required} MEMEPI to enter #${newRoom}. Your current balance is ${currentBalance}.`);
-                    console.warn(`Access denied to #${newRoom}: Insufficient balance (${currentBalance} < ${required}).`);
-                    return;
-                }
             }
 
             if (allRoomsMap.has(newRoom) && allRoomsMap.get(newRoom).status === 'inactive') {
@@ -1436,7 +1078,6 @@
                 console.warn(`Attempted to switch to inactive room #${newRoom}.`);
                 return;
             }
-
 
             if (chatRoomRef && messageListener) {
                 console.log(`Unsubscribing from old room: #${currentRoomName}`);
@@ -1460,9 +1101,6 @@
                     if (data.sender !== currentUserAlias && document.hidden) {
                         showNotification(data.sender, data.text, currentRoomName);
                     }
-                    if (aiBotIsActive && data.sender !== aiBotAlias) {
-                        handleAIBotResponse(data.text);
-                    }
                     updateRoomLastActivity(currentRoomName);
                 }
             });
@@ -1475,10 +1113,69 @@
                 initialRenderMessages();
             });
 
-            messagesDiv.innerHTML = `<div class="message" style="text-align: center; font-style: italic;">Welcome to #${currentRoomName}!</div>`;
+            messagesDiv.innerHTML = `<div class="message" style="text-align: center; font-style: italic; background-color: transparent; border: none; box-shadow: none;">Welcome to #${currentRoomName}!</div>`;
         }
 
         // --- Event Listeners ---
+
+        // --- Toast Notification Helper ---
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.padding = '12px 20px';
+            toast.style.borderRadius = '8px';
+            toast.style.background = type === 'success' ? '#fbbf24' : '#ef4444'; // Gold/Yellow or Red
+            toast.style.color = '#000';
+            toast.style.fontWeight = 'bold';
+            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5)';
+            toast.style.border = '1px solid rgba(255,255,255,0.1)';
+            toast.style.zIndex = '10000';
+            toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            toast.style.transform = 'translateY(20px)';
+            toast.style.opacity = '0';
+            toast.innerHTML = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateY(0)';
+                toast.style.opacity = '1';
+            }, 50);
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateY(20px)';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // --- Keys Modal Helper ---
+        function showKeysModal() {
+            if (user.is && user._.sea) {
+                keyModalPubKey.value = user.is.pub;
+                keyModalPrivKey.value = user._.sea.priv;
+                keysModal.style.display = 'flex';
+            }
+        }
+
+        copyKeysButton.addEventListener('click', () => {
+            keyModalPrivKey.select();
+            keyModalPrivKey.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(keyModalPrivKey.value)
+                .then(() => {
+                    showToast('Private key copied to clipboard!', 'success');
+                })
+                .catch(err => {
+                    showToast('Failed to copy: ' + err, 'error');
+                });
+        });
+
+        closeKeysModalButton.addEventListener('click', () => {
+            keysModal.style.display = 'none';
+        });
 
         gun.on('auth', async function() {
             const alias = await user.get('alias').then();
@@ -1486,6 +1183,17 @@
             console.log('Gun.js: User authenticated:', alias, 'currentUserAlias (global):', currentUserAlias, 'currentUserPub:', currentUserPub);
             if (alias) {
                 switchRoom(currentRoomName);
+                
+                // Add a beautiful system welcome message inside the general chat
+                setTimeout(() => {
+                    const welcomeMsg = {
+                        sender: 'System 🌿',
+                        text: `Welcome to Salamat Doc Chat, ${alias}! Your peer-to-peer connection is secure. Enjoy chatting!`,
+                        timestamp: Date.now(),
+                        _id: 'welcome_' + Date.now()
+                    };
+                    appendMessageElement(welcomeMsg);
+                }, 1000);
             }
         });
 
@@ -1493,32 +1201,45 @@
         console.log('Gun.js: User recall initiated.');
 
         signupButton.addEventListener('click', function() {
-            captchaCallback = () => {
-                const username = authUsernameInput.value.trim();
-                const password = authPasswordInput.value.trim();
-                if (!username || !password) { alert('Please enter both username and password to sign up.'); return; }
-                console.log('Auth: Attempting to create user:', username);
-                user.create(username, password, function(ack) {
-                    if (ack.err) { alert('Sign Up Error: ' + ack.err); console.error('Auth: Sign Up Error:', ack.err); }
-                    else { alert('Account created successfully! You are now logged in.'); console.log('Auth: Account created:', ack); }
-                });
-            };
-            showCaptcha();
+            const username = authUsernameInput.value.trim();
+            const password = authPasswordInput.value.trim();
+            if (!username || !password) { showToast('Please enter both username and password to sign up.', 'error'); return; }
+            if (password.length < 8) { showToast('Password must be at least 8 characters long.', 'error'); return; }
+            console.log('Auth: Attempting to create user:', username);
+            user.create(username, password, function(ack) {
+                if (ack.err) {
+                    showToast('Sign Up Error: ' + ack.err, 'error');
+                    console.error('Auth: Sign Up Error:', ack.err);
+                } else {
+                    console.log('Auth: Account created:', ack);
+                    user.auth(username, password, function(authAck) {
+                        if (authAck.err) {
+                            showToast('Account created, but failed to log in automatically: ' + authAck.err, 'error');
+                        } else {
+                            showToast('Account created successfully! Welcome to Salamat Doc Chat.', 'success');
+                            showKeysModal();
+                        }
+                    });
+                }
+            });
         });
 
         loginButton.addEventListener('click', function() {
-            captchaCallback = () => {
-                const username = authUsernameInput.value.trim();
-                const password = authPasswordInput.value.trim();
-                if (!username || !password) { alert('Please enter both username and password to log in.'); return; }
-                console.log('Auth: Attempting to log in user:', username);
-                user.auth(username, password, function(ack) {
-                    if (ack.err) { alert('Login Error: ' + ack.err); console.error('Auth: Login Error:', ack.err); }
-                    else { alert('Logged in successfully!'); console.log('Auth: Logged in:', ack); }
-                    renderModeratorControls();
-                });
-            };
-            showCaptcha();
+            const username = authUsernameInput.value.trim();
+            const password = authPasswordInput.value.trim();
+            if (!username || !password) { showToast('Please enter both username and password to log in.', 'error'); return; }
+            if (password.length < 8) { showToast('Password must be at least 8 characters long.', 'error'); return; }
+            console.log('Auth: Attempting to log in user:', username);
+            user.auth(username, password, function(ack) {
+                if (ack.err) {
+                    showToast('Login Error: ' + ack.err, 'error');
+                    console.error('Auth: Login Error:', ack.err);
+                } else {
+                    showToast('Logged in successfully! Welcome back, ' + username + ' 🌿', 'success');
+                    console.log('Auth: Logged in:', ack);
+                }
+                renderModeratorControls();
+            });
         });
 
         logoutButton.addEventListener('click', function() {
@@ -1526,13 +1247,10 @@
                 console.log('Auth: Attempting to log out user:', currentUserAlias);
                 user.leave();
                 updateLoginStatus(null);
-                alert('Logged out successfully.');
+                showToast('Logged out successfully.', 'success');
                 console.log('Auth: Logged out.');
             }
         });
-
-        connectWalletButton.addEventListener('click', connectWallet);
-        buyMemepiButton.addEventListener('click', buyMemepi);
 
         sendButton.addEventListener('click', sendMessage);
         messageInput.addEventListener('keypress', function(e) {
@@ -1541,29 +1259,19 @@
             }
         });
 
-        // --- Send Message Functionality (with added checks) ---
         function sendMessage() {
             console.log('sendMessage called.');
-            console.log('  -> currentUserAlias:', currentUserAlias);
-            console.log('  -> user.is:', user.is);
-            console.log('  -> chatRoomRef:', chatRoomRef);
-
             if (!user.is || !currentUserAlias) {
                 alert("You must be logged in to send messages.");
-                console.warn("Message not sent: User not logged in (user.is or currentUserAlias is false/null).");
                 return;
             }
             if (!chatRoomRef || typeof chatRoomRef.set !== 'function') {
-                alert("Cannot send message: Chat room is not ready. Please try switching rooms or refresh the page.");
-                console.error("Message not sent: chatRoomRef is null, undefined, or missing 'set' method.");
+                alert("Cannot send message: Chat room is not ready.");
                 return;
             }
 
             const messageText = messageInput.value.trim();
-            if (!messageText) {
-                console.warn("Message not sent: Empty message text.");
-                return;
-            }
+            if (!messageText) return;
 
             const message = {
                 sender: currentUserAlias,
@@ -1573,20 +1281,16 @@
 
             try {
                 chatRoomRef.set(message);
-                console.log("Message sent to Gun.js:", message);
                 updateRoomLastActivity(currentRoomName);
             } catch (e) {
                 console.error("Error setting message in Gun.js:", e);
-                alert("Failed to send message due to an internal error. Check console for details.");
+                alert("Failed to send message due to an internal error.");
             }
-
 
             messageInput.value = '';
             clearTimeout(typingTimeout);
             if (user.get('typing')) {
                 user.get('typing').put(false);
-            } else {
-                console.warn("user.get('typing') is undefined, cannot set typing status.");
             }
             typingUsersMap.delete(currentUserAlias);
             renderTypingIndicator();
@@ -1612,9 +1316,6 @@
                 user.get('status').put('offline');
                 user.get('typing').put(false);
             }
-            if (aiBotIsActive) {
-                aiBotUser.get('status').put('offline');
-            }
         });
 
         // --- Typing Indicator ---
@@ -1623,8 +1324,6 @@
 
             if (user.get('typing')) {
                 user.get('typing').put(true);
-            } else {
-                console.warn("user.get('typing') is undefined, cannot set typing status.");
             }
             typingUsersMap.set(currentUserAlias, true);
 
@@ -1670,177 +1369,9 @@
             if (Notification.permission === "granted" && document.hidden) {
                 const notification = new Notification(`New message in #${room} from ${sender}`, {
                     body: message,
-                    icon: 'images/memepi-logo.png'
+                    icon: 'images/salamat_doc_logo.png'
                 });
                 setTimeout(() => notification.close(), 5000);
-            }
-        }
-
-        // --- AI Bot Logic ---
-
-        function aiBotLogin() {
-            aiBotUser.create(aiBotAlias, aiBotPassword, function(ack) {
-                if (ack.err) {
-                    aiBotUser.auth(aiBotAlias, aiBotPassword, function(authAck) {
-                        if (authAck.err) { console.error('AI Bot Auth Error:', authAck.err); }
-                        else { console.log('AI Bot logged in via auth:', authAck); aiBotUser.get('status').put('online'); }
-                    });
-                } else {
-                    console.log('AI Bot account created and logged in:', ack);
-                    aiBotUser.get('status').put('online');
-                }
-            });
-            aiBotIsActive = true;
-            console.log('MemePi Oracle Bot activated!');
-        }
-
-        function aiBotLogout() {
-            aiBotUser.leave();
-            aiBotUser.get('status').put('offline');
-            aiBotIsActive = false;
-            console.log('MemePi Oracle Bot deactivated!');
-        }
-
-        function handleAIBotResponse(messageText) {
-            const lowerCaseMessage = messageText.toLowerCase();
-            let botResponse = '';
-
-            const now = Date.now();
-            if (now - aiBotLastResponseTime < AI_BOT_RESPONSE_DELAY) {
-                return;
-            }
-
-            if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
-                botResponse = 'Hello there, fellow MemePi enthusiast!';
-            } else if (lowerCaseMessage.includes('how are you')) {
-                botResponse = 'As a decentralized oracle, I am always in optimal state! How about you?';
-            } else if (lowerCaseMessage.includes('what is memepi')) {
-                botResponse = 'MemePi is a community-driven token on the Optimism Superchain, focused on fun, innovation, and decentralized growth! We are building exciting utilities!';
-            } else if (lowerCaseMessage.includes('optimism')) {
-                botResponse = 'Optimism is a fast, stable, and scalable Layer 2 blockchain. It\'s where MemePi thrives!';
-            } else if (lowerCaseMessage.includes('joke')) {
-                botResponse = 'Why did the crypto investor break up with the blockchain? Because he couldn\'t see a future with all those blocks!';
-            } else if (lowerCaseMessage.includes('thank you') || lowerCaseMessage.includes('thanks')) {
-                botResponse = 'You\'re most welcome! Always here to assist.';
-            } else if (lowerCaseMessage.includes('bye')) {
-                botResponse = 'Farewell for now! May your memes be plentiful and your transactions swift!';
-            } else if (lowerCaseMessage.includes('coin price') || lowerCaseMessage.includes('price')) {
-                botResponse = 'I cannot give financial advice, nor can I access real-time market data. Always DYOR!';
-            } else if (lowerCaseMessage.includes('utility')) {
-                botResponse = 'We\'re planning features like staking, governance, and more DeFi integrations! Stay tuned!';
-            }
-
-            if (botResponse) {
-                aiBotLastResponseTime = now;
-                setTimeout(() => {
-                    const botMessage = {
-                        sender: aiBotAlias,
-                        text: botResponse,
-                        timestamp: Date.now()
-                    };
-                    chatRoomRef.set(botMessage);
-                }, Math.random() * 1500 + 500);
-            }
-        }
-
-        aiBotToggle.addEventListener('change', function() {
-            if (this.checked) {
-                aiBotLogin();
-            } else {
-                aiBotLogout();
-            }
-        });
-
-        // --- Tipping Logic ---
-        function openTipModal(recipientAlias) {
-            if (!connectedWalletAddress || !walletSigner || !memepiContract) {
-                alert("Please connect your wallet to send MEMEPI tips.");
-                console.warn("Tip attempt failed: Wallet not connected.");
-                return;
-            }
-            if (recipientAlias === currentUserAlias) {
-                alert("You cannot tip yourself!");
-                console.warn("Tip attempt failed: Cannot tip self.");
-                return;
-            }
-            if (recipientAlias === aiBotAlias) {
-                 alert("You cannot tip the MemePi Oracle Bot.");
-                 console.warn("Tip attempt failed: Cannot tip AI bot.");
-                 return;
-            }
-
-            tippingTargetAlias = recipientAlias;
-            tipRecipientAliasSpan.textContent = recipientAlias;
-            tipAmountInput.value = '';
-            tipMessageDiv.textContent = '';
-            tipModal.style.display = 'flex';
-        }
-
-        async function sendTip() {
-            const amount = parseFloat(tipAmountInput.value);
-            if (isNaN(amount) || amount <= 0) {
-                tipMessageDiv.textContent = 'Please enter a valid amount.';
-                tipMessageDiv.style.color = 'var(--error-red)';
-                console.warn("Tip attempt failed: Invalid amount entered.");
-                return;
-            }
-
-            const recipientUserNode = gun.get('~').get(tippingTargetAlias);
-            let recipientWalletAddress = null;
-
-            await new Promise(resolve => {
-                recipientUserNode.get('pub').once(pub => {
-                    if (pub) {
-                        recipientWalletAddress = pub;
-                        console.log(`Found recipient wallet address for ${tippingTargetAlias}: ${recipientWalletAddress}`);
-                    } else {
-                        console.error(`Could not retrieve public key (wallet address) for alias: ${tippingTargetAlias}. User might not have a public wallet associated with their Gun account.`);
-                    }
-                    resolve();
-                });
-            });
-
-
-            if (!recipientWalletAddress) {
-                tipMessageDiv.textContent = `Could not find wallet address for ${tippingTargetAlias}. User might not have a public wallet associated with their Gun account.`;
-                tipMessageDiv.style.color = 'var(--error-red)';
-                return;
-            }
-
-            tipMessageDiv.textContent = 'Confirming transaction in wallet...';
-            tipMessageDiv.style.color = 'var(--text-color)';
-
-            try {
-                const amountWei = ethers.utils.parseUnits(amount.toString(), memepiDecimals);
-                const memepiContractWithSigner = memepiContract.connect(walletSigner);
-                
-                console.log(`Sending ${amount} MEMEPI to ${recipientWalletAddress}...`);
-                const tx = await memepiContractWithSigner.transfer(recipientWalletAddress, amountWei);
-                
-                tipMessageDiv.textContent = `Transaction sent! Waiting for confirmation... Tx Hash: ${tx.hash.substring(0, 10)}...`;
-                tipMessageDiv.style.color = 'var(--success-green)';
-                console.log('Tip transaction sent:', tx);
-
-                await tx.wait();
-
-                tipMessageDiv.textContent = `Tip of ${amount} MEMEPI sent to ${tippingTargetAlias} successfully!`;
-                tipMessageDiv.style.color = 'var(--success-green)';
-                console.log('Tip transaction confirmed:', tx);
-
-                const tipMessage = {
-                    sender: currentUserAlias,
-                    text: `Tipped ${tippingTargetAlias} ${amount} MEMEPI! 🎉`,
-                    timestamp: Date.now()
-                };
-                chatRoomRef.set(tipMessage);
-                updateMemePiBalance();
-
-                setTimeout(() => tipModal.style.display = 'none', 2000);
-
-            } catch (error) {
-                console.error("Error sending tip:", error);
-                tipMessageDiv.textContent = `Error sending tip: ${error.message || error.code}`;
-                tipMessageDiv.style.color = 'var(--error-red)';
             }
         }
 
@@ -1848,7 +1379,6 @@
         createRoomButton.addEventListener('click', () => {
             if (!user.is || !currentUserAlias) {
                 alert("You must be logged in to create a room.");
-                console.warn("Create room failed: User not logged in.");
                 return;
             }
             newRoomNameInput.value = '';
@@ -1909,10 +1439,8 @@
         gun.get('memepi_all_rooms').map().on(function(roomData, roomName) {
             if (roomData && roomName) {
                 if (roomData === null) {
-                    console.log(`Room #${roomName} detected as null (deleted). Removing from map.`);
                     allRoomsMap.delete(roomName);
                 } else {
-                    console.log(`Updating room map for #${roomName}:`, roomData);
                     allRoomsMap.set(roomName, roomData);
                 }
                 renderRoomList();
@@ -1926,8 +1454,6 @@
             gun.get('memepi_all_rooms').get(roomName).get('lastActivity').put(Date.now(), (ack) => {
                 if (ack.err) {
                     console.error(`Error updating lastActivity for room ${roomName}:`, ack.err);
-                } else {
-                    console.log(`Updated lastActivity for room #${roomName}.`);
                 }
             });
         }
@@ -1970,17 +1496,6 @@
                     li.classList.add('active');
                 }
 
-                if (GATED_ROOMS[room.name]) {
-                    const lockSpan = document.createElement('span');
-                    lockSpan.classList.add('lock-icon');
-                    lockSpan.textContent = '🔒';
-                    li.appendChild(lockSpan);
-                    if (room.name !== currentRoomName) {
-                        li.classList.add('locked-room');
-                        li.title = `Requires ${GATED_ROOMS[room.name].requiredBalance} MEMEPI`;
-                    }
-                }
-
                 if (room.status === 'active' && room.lastActivity !== Infinity && (Date.now() - room.lastActivity) > ROOM_INACTIVITY_TIMEOUT_MS) {
                     li.classList.add('inactive-room');
                     li.title = `Inactive for >${ROOM_INACTIVITY_TIMEOUT_MS / (60 * 60 * 1000)}h. Moderator can remove.`;
@@ -1999,7 +1514,7 @@
 
                     deleteIcon.addEventListener('click', async (event) => {
                         event.stopPropagation();
-                        const confirmDelete = confirm(`As a moderator, do you want to remove room #${room.name} from the public list? This action is irreversible for public visibility.`);
+                        const confirmDelete = confirm(`As a moderator, do you want to remove room #${room.name}?`);
                         if (confirmDelete) {
                             deleteRoom(room.name);
                         }
@@ -2012,43 +1527,37 @@
                         await switchRoom(room.name);
                     } else {
                         if (isModerator()) {
-                            const confirmDelete = confirm(`Room #${room.name} is inactive. As a moderator, do you want to remove it from the list for everyone?`);
+                            const confirmDelete = confirm(`Room #${room.name} is inactive. As a moderator, do you want to remove it from the list?`);
                             if (confirmDelete) {
                                 deleteRoom(room.name);
                             }
                         } else {
-                            alert(`Room #${room.name} is inactive and can only be removed by a moderator.`);
+                            alert(`Room #${room.name} is inactive.`);
                         }
                     }
                 });
                 roomList.appendChild(li);
             });
-            evaluateRoomAccess();
         }
 
+        // --- Room Inactivity Logic & Moderator Deletion ---
         function deleteRoom(roomName) {
             if (!isModerator()) {
                 alert("You are not authorized to delete rooms.");
-                console.warn(`Unauthorized attempt to delete room #${roomName} by ${currentUserAlias}.`);
                 return;
             }
 
             if (DEFAULT_ROOMS.includes(roomName)) {
-                console.warn(`Moderator attempted to delete default room #${roomName}. Aborting.`);
                 alert(`Default room #${roomName} cannot be deleted.`);
                 return;
             }
 
-            console.log(`Moderator (${currentUserAlias}) initiating deletion for room #${roomName}.`);
-
             gun.get('memepi_all_rooms').get(roomName).get('status').put('inactive', (ack) => {
                  if (ack.err) { console.error(`Error marking room #${roomName} inactive:`, ack.err); return; }
-                 console.log(`Room #${roomName} marked inactive. Now attempting to nullify.`);
                  gun.get('memepi_all_rooms').get(roomName).put(null, (ack2) => {
                      if (ack2.err) {
                          console.error(`Error deleting room #${roomName}:`, ack2.err);
                      } else {
-                         console.log(`Room #${roomName} successfully deleted.`);
                          if (currentRoomName === roomName) {
                              switchRoom('general');
                          }
@@ -2073,7 +1582,7 @@
             const superAdminLi = document.createElement('li');
             superAdminLi.textContent = `(Super Admin) ${SUPER_ADMIN_PUB_KEY.substring(0, 10)}...`;
             superAdminLi.style.fontWeight = 'bold';
-            superAdminLi.style.color = 'var(--primary-purple)';
+            superAdminLi.style.color = 'var(--accent-gold)';
             currentModsList.appendChild(superAdminLi);
 
             moderatorsMap.forEach((_, pubKey) => {
@@ -2126,7 +1635,6 @@
                         if (ack.err) {
                             modMessage.textContent = `Error adding moderator: ${ack.err}`;
                             modMessage.style.color = 'var(--error-red)';
-                            console.error('Add Moderator Error:', ack.err);
                         } else {
                             modMessage.textContent = `${alias} added as moderator!`;
                             modMessage.style.color = 'var(--success-green)';
@@ -2134,7 +1642,7 @@
                         }
                     });
                 } else {
-                    modMessage.textContent = `User '${alias}' not found or has no public key.`;
+                    modMessage.textContent = `User '${alias}' not found.`;
                     modMessage.style.color = 'var(--error-red)';
                 }
             });
@@ -2174,7 +1682,6 @@
                         if (ack.err) {
                             modMessage.textContent = `Error removing moderator: ${ack.err}`;
                             modMessage.style.color = 'var(--error-red)';
-                            console.error('Remove Moderator Error:', ack.err);
                         } else {
                             modMessage.textContent = `${alias} removed as moderator.`;
                             modMessage.style.color = 'var(--success-green)';
@@ -2182,48 +1689,13 @@
                         }
                     });
                 } else {
-                    modMessage.textContent = `User '${alias}' not found or has no public key.`;
+                    modMessage.textContent = `User '${alias}' not found.`;
                     modMessage.style.color = 'var(--error-red)';
                 }
             });
         }
 
-        // --- CAPTCHA Logic ---
-        function generateCaptcha() {
-            const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 10) + 1;
-            correctCaptchaAnswer = num1 + num2;
-            captchaChallengeDiv.textContent = `${num1} + ${num2} = ?`;
-            captchaInput.value = '';
-            captchaMessageDiv.textContent = '';
-            captchaModal.style.display = 'flex';
-            captchaInput.focus();
-        }
-
-        function verifyCaptcha() {
-            const userAnswer = parseInt(captchaInput.value, 10);
-            if (userAnswer === correctCaptchaAnswer) {
-                captchaModal.style.display = 'none';
-                if (captchaCallback) {
-                    captchaCallback();
-                }
-            } else {
-                captchaMessageDiv.textContent = 'Incorrect answer. Please try again.';
-                captchaMessageDiv.style.color = 'var(--error-red)';
-                captchaInput.value = '';
-                captchaInput.focus();
-                generateCaptcha();
-            }
-        }
-
-        function showCaptcha() {
-            generateCaptcha();
-            captchaModal.style.display = 'flex';
-        }
-
         // --- Modals Event Listeners ---
-        cancelTipButton.addEventListener('click', () => tipModal.style.display = 'none');
-        confirmTipButton.addEventListener('click', sendTip);
         cancelCreateRoomButton.addEventListener('click', () => createRoomModal.style.display = 'none');
         confirmCreateRoomButton.addEventListener('click', createNewRoom);
 
@@ -2241,20 +1713,9 @@
         removeModButton.addEventListener('click', removeModerator);
         closeModModalButton.addEventListener('click', () => manageModeratorsModal.style.display = 'none');
 
-        captchaConfirmButton.addEventListener('click', verifyCaptcha);
-        captchaCancelButton.addEventListener('click', () => {
-            captchaModal.style.display = 'none';
-            captchaCallback = null;
-        });
-        captchaInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                verifyCaptcha();
-            }
-        });
-
 
         // --- Initialization ---
-        console.log("MemePi Chat App: Initializing...");
+        console.log("Salamat Doc Chat App: Initializing...");
 
         DEFAULT_ROOMS.forEach(roomName => {
             gun.get('memepi_all_rooms').get(roomName).once(data => {
@@ -2265,7 +1726,7 @@
                         creator: 'System',
                         creatorPub: 'system_pub_key',
                         createdAt: 0,
-                        lastActivity: Infinity,
+                        lastActivity: 0,
                         status: 'active'
                     });
                 }
@@ -2289,22 +1750,7 @@
             updateLoginStatus(null);
         }
 
-        if (typeof window.ethereum !== 'undefined') {
-            window.ethereum.request({ method: 'eth_accounts' })
-                .then(accounts => {
-                    if (accounts.length > 0) {
-                        console.log("MetaMask: Found existing wallet connection, attempting to re-connect.");
-                        connectWallet();
-                    } else {
-                        console.log("MetaMask: No existing wallet connection found on load.");
-                    }
-                })
-                .catch(error => console.error("MetaMask: Error checking existing accounts on load:", error));
-        } else {
-            console.warn("MetaMask or compatible wallet not detected in browser.");
-        }
-        console.log("MemePi Chat App: Initialization complete.");
-
+        console.log("Salamat Doc Chat App: Initialization complete.");
     </script>
     <script>
         // --- Service Worker Registration ---
